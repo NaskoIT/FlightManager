@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FlightManager.Data;
 using FlightManager.Models;
+using FlightManager.Services.Mappings;
+using FlightManager.ViewModels;
+using FlightManager.Data.Seeding;
 
 namespace FlightManager.Web
 {
@@ -44,9 +47,22 @@ namespace FlightManager.Web
             services.AddRazorPages();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).Assembly, typeof(Startup).Assembly);
+
+            using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
+            {
+                ApplicationDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                if (env.IsDevelopment())
+                {
+                    dbContext.Database.Migrate();
+                }
+
+                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

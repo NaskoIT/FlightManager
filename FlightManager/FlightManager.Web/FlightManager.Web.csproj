@@ -23,9 +23,11 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\FlightManager.Common\FlightManager.Common.csproj" />
     <ProjectReference Include="..\FlightManager.Data\FlightManager.Data.csproj" />
     <ProjectReference Include="..\FlightManager.InputModels\FlightManager.InputModels.csproj" />
     <ProjectReference Include="..\FlightManager.Models\FlightManager.Models.csproj" />
+    <ProjectReference Include="..\FlightManager.Services\FlightManager.Services.csproj" />
     <ProjectReference Include="..\FlightManager.ViewModels\FlightManager.ViewModels.csproj" />
   </ItemGroup>
 
