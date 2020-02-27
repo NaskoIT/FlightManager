@@ -30,7 +30,15 @@
                 {
                     <tr class="row">
                         <td class="col-md-1">@(index++)</td>
-                        <td class="col-md-2">@employee.Username</td>
+                        <td class="col-md-2">
+                            <a class="text-dark"
+                               asp-area="@AdministrationArea"
+                               asp-controller="Employee"
+                               asp-action="Details"
+                               asp-route-id="@employee.Id">
+                                @employee.Username
+                            </a>
+                        </td>
                         <td class="col-md-2">@employee.Name</td>
                         <td class="col-md-2">@employee.Surname</td>
                         <td class="col-md-2">@employee.PersonalNumber</td>
@@ -44,7 +52,7 @@
                             </a>
                             <a class="btn btn-outline-danger"
                                asp-area="@AdministrationArea"
-                               asp-controller="Student"
+                               asp-controller="Employee"
                                asp-action="Delete"
                                asp-route-id="@employee.Id">
                                 Delete

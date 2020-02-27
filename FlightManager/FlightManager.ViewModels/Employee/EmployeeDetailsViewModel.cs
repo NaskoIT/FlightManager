@@ -3,7 +3,7 @@ using FlightManager.Models;
 
 namespace FlightManager.ViewModels.Employee
 {
-    public class EmployeeDetailsViewModel : IMapTo<User>
+    public class EmployeeDetailsViewModel : IMapFrom<User>
     {
         public string Username { get; set; }
 
