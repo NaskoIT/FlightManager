@@ -7,9 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FlightManager.Data;
 using FlightManager.Models;
-using FlightManager.Services.Mappings;
 using FlightManager.ViewModels;
 using FlightManager.Data.Seeding;
+using FlightManager.Common.Mappings;
+using FlightManager.InputModels.Employee;
 
 namespace FlightManager.Web
 {
@@ -48,7 +49,7 @@ namespace FlightManager.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).Assembly, typeof(Startup).Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).Assembly, typeof(EmployeeInputModel).Assembly);
 
             using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
             {
@@ -83,9 +84,8 @@ namespace FlightManager.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

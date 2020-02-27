@@ -19,8 +19,8 @@ namespace FlightManager.Data.Seeding
 
         private static async Task SeedRoleAsync(RoleManager<IdentityRole> roleManager, string roleName)
         {
-            IdentityRole role = await roleManager.FindByNameAsync(roleName);
-            if (role == null)
+            bool roleExists = await roleManager.RoleExistsAsync(roleName);
+            if (!roleExists)
             {
                 IdentityResult result = await roleManager.CreateAsync(new IdentityRole(roleName));
                 if (!result.Succeeded)

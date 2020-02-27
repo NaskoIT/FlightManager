@@ -5,11 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <ProjectReference Include="..\FlightManager.Data\FlightManager.Data.csproj" />
+    <ProjectReference Include="..\FlightManager.InputModels\FlightManager.InputModels.csproj" />
+    <ProjectReference Include="..\FlightManager.ViewModels\FlightManager.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>

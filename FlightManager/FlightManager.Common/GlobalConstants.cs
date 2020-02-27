@@ -2,6 +2,8 @@
 {
     public static class GlobalConstants
     {
+        public const string AdministrationArea = "Administration";
+
         public static class Roles
         {
             public const string Administrator = "Administrator";

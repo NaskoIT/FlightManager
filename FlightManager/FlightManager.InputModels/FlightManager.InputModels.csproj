@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FlightManager.Common\FlightManager.Common.csproj" />
+    <ProjectReference Include="..\FlightManager.Models\FlightManager.Models.csproj" />
+  </ItemGroup>
+
 </Project>

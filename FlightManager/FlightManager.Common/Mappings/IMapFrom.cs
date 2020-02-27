@@ -1,4 +1,4 @@
-﻿namespace FlightManager.Services.Mappings
+﻿namespace FlightManager.Common.Mappings
 {
     public interface IMapFrom<T>
     {

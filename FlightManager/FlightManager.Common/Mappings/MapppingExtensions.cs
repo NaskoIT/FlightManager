@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper.QueryableExtensions;
 
-namespace FlightManager.Services.Mappings
+namespace FlightManager.Common.Mappings
 {
     public static class MappingExtensions
     {
@@ -31,7 +32,7 @@ namespace FlightManager.Services.Mappings
             return source.ProjectTo<TDestination>(AutoMapperConfig.MapperInstance.ConfigurationProvider, parameters);
         }
 
-        public static Destination To<Destination>(this object source) => 
+        public static Destination To<Destination>(this object source) =>
             AutoMapperConfig.MapperInstance.Map<Destination>(source);
     }
 }

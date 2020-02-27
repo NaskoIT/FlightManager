@@ -5,7 +5,7 @@ using AutoMapper;
 using AutoMapper.Configuration;
 using System.Reflection;
 
-namespace FlightManager.Services.Mappings
+namespace FlightManager.Common.Mappings
 {
     public static class AutoMapperConfig
     {
