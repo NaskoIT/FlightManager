@@ -14,12 +14,18 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\FlightManager.Data\FlightManager.Data.csproj" />
     <ProjectReference Include="..\FlightManager.InputModels\FlightManager.InputModels.csproj" />
+    <ProjectReference Include="..\FlightManager.Models\FlightManager.Models.csproj" />
     <ProjectReference Include="..\FlightManager.ViewModels\FlightManager.ViewModels.csproj" />
   </ItemGroup>
 
