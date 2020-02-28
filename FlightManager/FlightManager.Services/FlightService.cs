@@ -3,6 +3,8 @@ using FlightManager.Data;
 using FlightManager.InputModels.Flight;
 using FlightManager.Models;
 using FlightManager.Services.Interfaces;
+using FlightManager.ViewModels.Flight;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +19,9 @@ namespace FlightManager.Services
             this.context = context;
         }
 
+        public IEnumerable<FlightViewModel> All() => 
+            context.Flights.To<FlightViewModel>().ToList();
+
         public async Task Create(FlightInputModel model)
         {
             Flight flight = model.To<Flight>();
@@ -25,6 +30,19 @@ namespace FlightManager.Services
             await context.Flights.AddAsync(flight);
             await context.SaveChangesAsync();
         }
+
+        public async Task Delete(int id)
+        {
+            Flight flight = context.Flights.Find(id);
+            context.Flights.Remove(flight);
+            await context.SaveChangesAsync();
+        }
+
+        public T GetById<T>(int id) => 
+            context.Flights
+                .Where(f => f.Id == id)
+                .To<T>()
+                .FirstOrDefault();
 
         public async Task Update(FlightInputModel model, int id)
         {
