@@ -1,4 +1,5 @@
 ﻿using FlightManager.ViewModels.Reservation;
+using System;
 using System.Collections.Generic;
 
 namespace FlightManager.ViewModels.Flight

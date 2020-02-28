@@ -16,7 +16,7 @@ namespace FlightManager.Web.Areas.Administration.Controllers
             this.flightService = flightService;
         }
 
-        public IActionResult Create => View();
+        public IActionResult Create() => View();
 
         [HttpPost]
         public async Task<IActionResult> Create(FlightInputModel model)
@@ -42,8 +42,6 @@ namespace FlightManager.Web.Areas.Administration.Controllers
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult All() => View(flightService.All());
-
         public IActionResult Edit(int id)
         {
             FlightInputModel model = flightService.GetById<FlightInputModel>(id);
@@ -55,12 +53,6 @@ namespace FlightManager.Web.Areas.Administration.Controllers
         {
             await flightService.Update(model, id);
             return RedirectToAction(nameof(Details), new { id });
-        }
-
-        public IActionResult Details(int id)
-        {
-            FlightDetailsViewModel model = flightService.GetById<FlightDetailsViewModel>(id);
-            return View(model);
         }
 
         public IActionResult Delete(int id)

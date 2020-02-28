@@ -1,0 +1,70 @@
+﻿@model IEnumerable<FlightViewModel>
+
+@{
+    ViewData["Title"] = "All flights";
+}
+
+<div>
+    @if (!Model.Any())
+    {
+        <hr class="bg-info cm-hr" />
+        <div class="text-secondary font-size-30 text-center mt-4">There are no flights in the system!</div>
+        <hr class="bg-info cm-hr" />
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr class="row">
+                    <th class="col-md-2">Plane number</th>
+                    <th class="col-md-2">Origin</th>
+                    <th class="col-md-2">Destination</th>
+                    <th class="col-md-2">Take off time</th>
+                    <th class="col-md-1">Duration</th>
+                    @if (User.IsInRole(Roles.Administrator))
+                    {
+                        <th class="col-md-3">Actions</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var flight in Model)
+                {
+                    <tr class="row">
+                        <td class="col-md-2">
+                            <a class="text-dark"
+                               asp-controller="Flight"
+                               asp-action="Details"
+                               asp-route-id="@flight.Id">
+                                @flight.PlaneNumber
+                            </a>
+                        </td>
+                        <td class="col-md-2">@flight.Origin</td>
+                        <td class="col-md-2">@flight.Destination</td>
+                        <td class="col-md-2">@flight.TakeOffTime.ToString(LongDateFormat)</td>
+                        <td class="col-md-1">@flight.Duration</td>
+                        @if (User.IsInRole(Roles.Administrator))
+                        {
+                            <td class="col-md-3">
+                                <a class="btn btn-outline-primary mx-3"
+                                   asp-area="@AdministrationArea"
+                                   asp-controller="Flight"
+                                   asp-action="Edit"
+                                   asp-route-id="@flight.Id">
+                                    Edit
+                                </a>
+                                <a class="btn btn-outline-danger"
+                                   asp-area="@AdministrationArea"
+                                   asp-controller="Flight"
+                                   asp-action="Delete"
+                                   asp-route-id="@flight.Id">
+                                    Delete
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
