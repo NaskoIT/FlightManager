@@ -23,7 +23,7 @@ namespace FlightManager.Web.Areas.Administration.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(EmployeeInputModel model)
+        public async Task<IActionResult> Create(EmployeeCreateInputModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -52,13 +52,13 @@ namespace FlightManager.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             User user = await userManager.FindByIdAsync(id);
-            return View(user.To<EmployeeInputModel>());
+            return View(user.To<EmployeeEditInputModel>());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EmployeeInputModel model, string id)
+        public async Task<IActionResult> Edit(EmployeeEditInputModel model)
         {
-            User user = await userManager.FindByIdAsync(id);
+            User user = await userManager.FindByIdAsync(model.Id);
             user.Email = model.Email;
             user.UserName = model.Username;
             user.Address = model.Address;
@@ -66,10 +66,9 @@ namespace FlightManager.Web.Areas.Administration.Controllers
             user.Surname = model.Surname;
             user.PhoneNumber = model.PhoneNumber;
             user.PersonalNumber = model.PersonalNumber;
-            user.PasswordHash = userManager.PasswordHasher.HashPassword(user, model.Password);
 
             await userManager.UpdateAsync(user);
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(Details), new { model.Id });
         }
 
         public async Task<IActionResult> Delete(string id)

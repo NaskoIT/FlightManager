@@ -49,7 +49,7 @@ namespace FlightManager.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).Assembly, typeof(EmployeeInputModel).Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).Assembly, typeof(EmployeeCreateInputModel).Assembly);
 
             using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
             {
