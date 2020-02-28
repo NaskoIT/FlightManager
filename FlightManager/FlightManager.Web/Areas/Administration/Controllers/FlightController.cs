@@ -31,7 +31,7 @@ namespace FlightManager.Web.Areas.Administration.Controllers
             }
             if(model.LandingTime < model.TakeOffTime)
             {
-                ModelState.AddModelError(nameof(FlightInputModel.LandingTime), "Take off time must be before landing time!");
+                ModelState.AddModelError(nameof(FlightInputModel.TakeOffTime), "Take off time must be before landing time!");
             }
             if (!ModelState.IsValid)
             {
@@ -39,7 +39,7 @@ namespace FlightManager.Web.Areas.Administration.Controllers
             }
 
             await flightService.Create(model);
-            return RedirectToAction(nameof(All));
+            return Redirect("/Flight/All");
         }
 
         public IActionResult Edit(int id)
@@ -52,7 +52,7 @@ namespace FlightManager.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Edit(FlightInputModel model, int id)
         {
             await flightService.Update(model, id);
-            return RedirectToAction(nameof(Details), new { id });
+            return Redirect("/Flight/All");
         }
 
         public IActionResult Delete(int id)
@@ -62,11 +62,11 @@ namespace FlightManager.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        [ActionName(nameof(Details))]
+        [ActionName(nameof(Delete))]
         public IActionResult DeleteConfirm(int id)
         {
             flightService.Delete(id);
-            return RedirectToAction(nameof(All));
+            return Redirect("/Flight/All");
         }
     }
 }

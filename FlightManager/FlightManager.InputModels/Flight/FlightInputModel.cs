@@ -1,9 +1,11 @@
-﻿using System;
+﻿using AutoMapper;
+using FlightManager.Common.Mappings;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace FlightManager.InputModels.Flight
 {
-    public class FlightInputModel
+    public class FlightInputModel : IHaveCustomMappings
     {
         [Required]
         public string Origin { get; set; }
@@ -27,5 +29,16 @@ namespace FlightManager.InputModels.Flight
         public int AvailableEconomy { get; set; }
 
         public int AvailableBussines { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<FlightInputModel, Models.Flight>()
+                .ForMember(m => m.Destination, y => y.Ignore())
+                .ForMember(m => m.Origin, y => y.Ignore());
+
+            configuration.CreateMap<Models.Flight, FlightInputModel>()
+                .ForMember(m => m.Origin, y => y.MapFrom(f => f.Origin.Name))
+                .ForMember(m => m.Destination, y => y.MapFrom(f => f.Destination.Name));
+        }
     }
 }

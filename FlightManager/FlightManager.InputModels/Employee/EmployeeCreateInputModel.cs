@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FlightManager.InputModels.Employee
 {
-    public class EmployeeCreateInputModel : IMapTo<User>, IMapFrom<User>
+    public class EmployeeCreateInputModel : IMapTo<User>
     {
         [Required]
         public string Username { get; set; }

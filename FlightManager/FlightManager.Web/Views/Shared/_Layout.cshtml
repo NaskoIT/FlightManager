@@ -33,6 +33,15 @@
                                     <a class="dropdown-item" asp-area="@AdministrationArea" asp-controller="Employee" asp-action="All">All</a>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="@AdministrationArea" asp-controller="Flight" asp-action="Create">Add Flight</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="All">Flights</a>
+                            </li>
                         }
                     </ul>
                 </div>
