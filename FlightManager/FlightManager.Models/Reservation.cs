@@ -1,28 +1,27 @@
-﻿using FlightManager.Models.Enums;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlightManager.Models
 {
     public class Reservation
     {
+        public Reservation()
+        {
+            Passengers = new HashSet<Passanger>();
+        }
+
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        public string ClientId { get; set; }
+        public Client Client { get; set; }
 
-        public string MiddleName { get; set; }
-
-        public string Surname { get; set; }
-
-        public string Email { get; set; }
-
-        public string PersonalNumber { get; set; }
-
-        public string PhoneNumber { get; set; }
-
-        public string Nationality { get; set; }
-
-        public TicketType TicketType { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public int FlightId { get; set; }
         public Flight Flight { get; set; }
+
+        public ICollection<Passanger> Passengers { get; set; }
     }
 }

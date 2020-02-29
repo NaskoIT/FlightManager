@@ -4,14 +4,16 @@ using FlightManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlightManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200229092138_ReservationEntites")]
+    partial class ReservationEntites
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +31,7 @@ namespace FlightManager.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("FlightManager.Models.Flight", b =>
@@ -126,7 +128,7 @@ namespace FlightManager.Data.Migrations
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("Passangers");
+                    b.ToTable("Passanger");
                 });
 
             modelBuilder.Entity("FlightManager.Models.Reservation", b =>

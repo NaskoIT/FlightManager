@@ -1,10 +1,9 @@
-﻿using AutoMapper;
-using FlightManager.Common.Mappings;
+﻿using FlightManager.Common.Mappings;
 using FlightManager.Models.Enums;
 
 namespace FlightManager.ViewModels.Reservation
 {
-    public class ReservationViewModel : IMapFrom<Models.Reservation>, IHaveCustomMappings
+    public class ReservationViewModel : IMapFrom<Models.Reservation>
     {
         public int Id { get; set; }
 
@@ -20,8 +19,8 @@ namespace FlightManager.ViewModels.Reservation
 
         public TicketType TicketType { get; set; }
 
-        void IHaveCustomMappings.CreateMappings(IProfileExpression configuration) => 
-            configuration.CreateMap<Models.Reservation, ReservationViewModel>()
-                .ForMember(m => m.FullName, y => y.MapFrom(r => $"{r.Name} {r.MiddleName} {r.Surname}"));
+        //void IHaveCustomMappings.CreateMappings(IProfileExpression configuration) => 
+        //    configuration.CreateMap<Models.Reservation, ReservationViewModel>()
+        //        .ForMember(m => m.FullName, y => y.MapFrom(r => $"{r.Name} {r.MiddleName} {r.Surname}"));
     }
 }
