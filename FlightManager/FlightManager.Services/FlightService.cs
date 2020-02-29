@@ -22,6 +22,16 @@ namespace FlightManager.Services
         public IEnumerable<FlightViewModel> All() => 
             context.Flights.To<FlightViewModel>().ToList();
 
+        public int AvailableBussinesTickets(int flightId) => 
+            context.Flights.Where(f => f.Id == flightId)
+            .Select(f => f.AvailableBussines)
+            .FirstOrDefault();
+
+        public int AvailableEconomyTickets(int flightId) =>
+            context.Flights.Where(f => f.Id == flightId)
+            .Select(f => f.AvailableEconomy)
+            .FirstOrDefault();
+
         public async Task Create(FlightInputModel model)
         {
             Flight flight = model.To<Flight>();
@@ -56,6 +66,16 @@ namespace FlightManager.Services
             flight.PlaneNumber = model.PlaneNumber;
             flight.PlaneType = model.PlaneType;
             flight.TakeOffTime = model.TakeOffTime;
+
+            context.Flights.Update(flight);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAvailableTickets(int flightId, int ecenomyTickets, int bussinesTickets)
+        {
+            Flight flight = context.Flights.Find(flightId);
+            flight.AvailableEconomy -= ecenomyTickets;
+            flight.AvailableBussines -= bussinesTickets;
 
             context.Flights.Update(flight);
             await context.SaveChangesAsync();
