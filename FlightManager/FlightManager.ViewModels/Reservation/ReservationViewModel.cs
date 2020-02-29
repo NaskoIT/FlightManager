@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FlightManager.Common.Mappings;
-using FlightManager.Models.Enums;
+using System;
 
 namespace FlightManager.ViewModels.Reservation
 {
@@ -8,20 +8,14 @@ namespace FlightManager.ViewModels.Reservation
     {
         public int Id { get; set; }
 
-        public string FullName { get; set; }
+        public string ClientEmail { get; set; }
 
-        public string Email { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public string PersonalNumber { get; set; }
+        public int TicketsCount { get; set; }
 
-        public string PhoneNumber { get; set; }
-
-        public string Nationality { get; set; }
-
-        public TicketType TicketType { get; set; }
-
-        void IHaveCustomMappings.CreateMappings(IProfileExpression configuration) => 
+        void IHaveCustomMappings.CreateMappings(IProfileExpression configuration) =>
             configuration.CreateMap<Models.Reservation, ReservationViewModel>()
-                .ForMember(m => m.FullName, y => y.MapFrom(r => $"{r.Name} {r.MiddleName} {r.Surname}"));
+                .ForMember(m => m.TicketsCount, y => y.MapFrom(r => r.Passengers.Count));
     }
 }

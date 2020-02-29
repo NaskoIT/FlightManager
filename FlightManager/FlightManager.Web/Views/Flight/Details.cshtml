@@ -1,6 +1,7 @@
 ﻿@model FlightDetailsViewModel
 @{
     ViewData["Title"] = "Flight details";
+    int index = 1;
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -62,24 +63,27 @@
     <table class="table table-striped">
         <thead>
             <tr class="row">
-                <th class="col-md-2">Full name</th>
-                <th class="col-md-2">Email</th>
-                <th class="col-md-2">Personal number</th>
-                <th class="col-md-2">Phone number</th>
-                <th class="col-md-2">Nationality</th>
-                <th class="col-md-2">Ticket type</th>
+                <th class="col-md-1">&#8470;</th>
+                <th class="col-md-3">Client Email</th>
+                <th class="col-md-3">Created on</th>
+                <th class="col-md-2">Tickets Count</th>
+                <th class="col-md-3">Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var reservation in Model.Reservations)
             {
                 <tr class="row">
-                    <td class="col-md-2">@reservation.FullName</td>
-                    <td class="col-md-2">@reservation.Email</td>
-                    <td class="col-md-2">@reservation.PersonalNumber</td>
-                    <td class="col-md-2">@reservation.PhoneNumber</td>
-                    <td class="col-md-2">@reservation.Nationality</td>
-                    <td class="col-md-2">@reservation.TicketType</td>
+                    <td class="col-md-1">@(index++)</td>
+                    <td class="col-md-3">@reservation.ClientEmail</td>
+                    <td class="col-md-3">@reservation.CreatedOn.ToString(LongDateFormat)</td>
+                    <td class="col-md-2">@reservation.TicketsCount</td>
+                    <td class="col-md-3">
+                        <a class="btn btn-outline-dark"
+                           asp-controller="Reservation"
+                           asp-action="Details"
+                           asp-route-id="@reservation.Id">Details</a>
+                    </td>
                 </tr>
             }
         </tbody>

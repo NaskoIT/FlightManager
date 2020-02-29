@@ -46,7 +46,8 @@ namespace FlightManager.Web
                .AddDefaultTokenProviders();
 
             services
-                .AddTransient<IFlightService, FlightService>();
+                .AddTransient<IFlightService, FlightService>()
+                .AddTransient<IReservationService, ReservationService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

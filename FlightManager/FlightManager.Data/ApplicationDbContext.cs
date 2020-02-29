@@ -15,7 +15,11 @@ namespace FlightManager.Data
 
         public DbSet<Location> Locations { get; set; }
 
-        public Reservation Reservations { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
+
+        public DbSet<Passanger> Passangers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
