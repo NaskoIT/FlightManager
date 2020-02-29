@@ -1,4 +1,5 @@
-﻿using FlightManager.Common.Mappings;
+﻿using AutoMapper;
+using FlightManager.Common.Mappings;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +13,7 @@ namespace FlightManager.InputModels.Reservation
 
         public int FlightId { get; set; }
 
-        public List<ReservationInputModel> Passengers { get; set; }
+        [IgnoreMap]
+        public List<ReservationPassangerInputModel> Passengers { get; set; }
     }
 }
