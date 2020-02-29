@@ -2,6 +2,7 @@
 using FlightManager.Common.Mappings;
 using FlightManager.ViewModels.Reservation;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FlightManager.ViewModels.Flight
 {
@@ -21,7 +22,8 @@ namespace FlightManager.ViewModels.Flight
            configuration.CreateMap<Models.Flight, FlightDetailsViewModel>()
                .ForMember(m => m.Duration, y => y.MapFrom(f => f.LandingTime - f.TakeOffTime))
                .ForMember(m => m.Origin, y => y.MapFrom(f => f.Origin.Name))
-               .ForMember(m => m.Destination, y => y.MapFrom(f => f.Destination.Name));
+               .ForMember(m => m.Destination, y => y.MapFrom(f => f.Destination.Name))
+               .ForMember(m => m.Reservations, y => y.MapFrom(f => f.Reservations.OrderByDescending(r => r.CreatedOn)));
 
     }
 }
