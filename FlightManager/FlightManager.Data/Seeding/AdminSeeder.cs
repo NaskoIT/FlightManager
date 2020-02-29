@@ -31,7 +31,7 @@ namespace FlightManager.Data.Seeding
             };
 
             await userManager.CreateAsync(user, Admin.Password);
-            var result = await userManager.AddToRoleAsync(user, Roles.Administrator);
+            IdentityResult result = await userManager.AddToRoleAsync(user, Roles.Administrator);
             
         }
     }

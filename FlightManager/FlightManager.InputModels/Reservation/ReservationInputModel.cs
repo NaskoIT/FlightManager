@@ -18,8 +18,7 @@ namespace FlightManager.InputModels.Reservation
         public List<ReservationPassangerInputModel> Passengers { get; set; }
 
         public void CreateMappings(IProfileExpression configuration) =>
-            configuration.CreateMap<ReservationClientInputModel, Models.Reservation>()
+            configuration.CreateMap<ReservationInputModel, Models.Reservation>()
             .ForMember(m => m.Passengers, y => y.Ignore());
-        }
     }
 }

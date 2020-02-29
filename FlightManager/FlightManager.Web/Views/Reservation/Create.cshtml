@@ -21,12 +21,12 @@
             </div>
             <hr />
             <h4>Passangers</h4>
-            <div id="passangers">
+            <div id="passengers">
                 @for (int i = 0; i < Model.Passengers.Count; i++)
                 {
-                    <div class="passanger">
+                    <div class="passenger">
                         <hr />
-                        <h5>Passanger 1</h5>
+                        <h5>Passenger 1</h5>
                         <div class="d-flex justify-content-between">
                             <div class="form-group w-25">
                                 <label asp-for="Passengers[i].Name"></label>
@@ -81,7 +81,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <button type="button" class="btn btn-dark" id="add-passanger-btn">Add passanger</button>
+                <button type="button" class="btn btn-dark" id="add-passenger-btn">Add passanger</button>
             </div>
         </form>
     </div>
@@ -91,15 +91,15 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
-        let index = @Model.Passengers.Count;
-        let html = $("#passanger").html();
-        $('#add-passanger-btn').on('click', () => {
-            html = html
-                .replace('Passengers_0__', $`Passengers_${index}__`)
-                .replace('Passengers[0]', $`Passengers[${index}]`)
-                .replace('<h5>Passanger 1</h5>', $` <h5>Passanger ${index + 1}</h5>`);
-            $('#passangers').append(html);
+        let index = Number.parseInt('@Model.Passengers.Count');
+        let html = $($(".passenger")[0]).html();
+        $('#add-passenger-btn').on('click', () => {
+            console.log(`Passengers_${index}__`);
+            newHtml = html.split(`Passengers_0__`).join(`Passengers_${index}__`);
+            newHtml = newHtml.split(`Passengers[0]`).join(`Passengers[${index}]`);
+            newHtml = newHtml.split(`Passenger 1`).join(`Passenger ${index + 1}`);
 
+            $('#passengers').append(newHtml);
             index++;
         })
     </script>

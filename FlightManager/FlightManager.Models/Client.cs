@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace FlightManager.Models
 {
@@ -7,6 +8,7 @@ namespace FlightManager.Models
         public Client()
         {
             Reservations = new HashSet<Reservation>();
+            Id = Guid.NewGuid().ToString();
         }
 
         public string Id { get; set; }
