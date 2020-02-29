@@ -44,6 +44,10 @@ namespace FlightManager.Services
         public async Task Delete(int id)
         {
             Flight flight = context.Flights.Find(id);
+            IQueryable<Reservation> reservations = context.Reservations.Where(r => r.FlightId == id);
+            IQueryable<Passanger> passengers = reservations.SelectMany(r => r.Passengers);
+            context.Reservations.RemoveRange(reservations);
+            context.Passangers.RemoveRange(passengers);
             context.Flights.Remove(flight);
             await context.SaveChangesAsync();
         }
