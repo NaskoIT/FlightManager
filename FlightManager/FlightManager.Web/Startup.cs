@@ -49,6 +49,11 @@ namespace FlightManager.Web
                 .AddTransient<IFlightService, FlightService>()
                 .AddTransient<IReservationService, ReservationService>();
 
+            string smtpServer = Configuration["Email:SmtpServer"];
+            string username = Configuration["Email:Username"];
+            string password = Configuration["Email:Password"];
+            services.AddTransient<IEmailSender, EmailSender>(_ => new EmailSender(smtpServer, username, password));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

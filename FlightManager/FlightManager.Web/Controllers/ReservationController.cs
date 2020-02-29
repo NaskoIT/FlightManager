@@ -1,5 +1,6 @@
 ﻿using FlightManager.InputModels.Reservation;
 using FlightManager.Models.Enums;
+using FlightManager.Services;
 using FlightManager.Services.Interfaces;
 using FlightManager.ViewModels.Reservation;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,16 @@ namespace FlightManager.Web.Controllers
     {
         private readonly IReservationService reservationService;
         private readonly IFlightService flightService;
+        private readonly IEmailSender emailSender;
 
-        public ReservationController(IReservationService reservationService, IFlightService flightService)
+        public ReservationController(
+            IReservationService reservationService, 
+            IFlightService flightService,
+            IEmailSender emailSender)
         {
             this.reservationService = reservationService;
             this.flightService = flightService;
+            this.emailSender = emailSender;
         }
 
         public IActionResult Create(int flightId)
@@ -51,7 +57,7 @@ namespace FlightManager.Web.Controllers
 
             await reservationService.Create(model);
             await flightService.UpdateAvailableTickets(model.FlightId, ecenomyTickets, bussinesTickets);
-            //Send email to user in order to approve the reservation
+            //TODO user IEmail sender to send emails to all passengers
             return Redirect("/");
         }
 
