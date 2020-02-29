@@ -36,6 +36,12 @@ namespace FlightManager.Services
             await context.SaveChangesAsync();
         }
 
+        public T GetById<T>(int id) =>
+            context.Reservations
+            .Where(r => r.Id == id)
+            .To<T>()
+            .FirstOrDefault();
+
         public Client GetReservationClient(string clientEmail) =>
             context.Clients.FirstOrDefault(c => c.Email == clientEmail);
 

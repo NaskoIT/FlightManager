@@ -94,7 +94,6 @@
         let index = Number.parseInt('@Model.Passengers.Count');
         let html = $($(".passenger")[0]).html();
         $('#add-passenger-btn').on('click', () => {
-            console.log(`Passengers_${index}__`);
             newHtml = html.split(`Passengers_0__`).join(`Passengers_${index}__`);
             newHtml = newHtml.split(`Passengers[0]`).join(`Passengers[${index}]`);
             newHtml = newHtml.split(`Passenger 1`).join(`Passenger ${index + 1}`);

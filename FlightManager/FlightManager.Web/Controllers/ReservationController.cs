@@ -1,6 +1,7 @@
 ﻿using FlightManager.InputModels.Reservation;
 using FlightManager.Models.Enums;
 using FlightManager.Services.Interfaces;
+using FlightManager.ViewModels.Reservation;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,6 +53,12 @@ namespace FlightManager.Web.Controllers
             await flightService.UpdateAvailableTickets(model.FlightId, ecenomyTickets, bussinesTickets);
             //Send email to user in order to approve the reservation
             return Redirect("/");
+        }
+
+        public IActionResult Details(int id)
+        {
+            ReservationDetailsViewModel model = reservationService.GetById<ReservationDetailsViewModel>(id);
+            return View(model);
         }
     }
 }

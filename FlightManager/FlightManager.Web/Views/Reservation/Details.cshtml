@@ -1,0 +1,39 @@
+﻿@model ReservationDetailsViewModel
+
+@{
+    ViewData["Title"] = "Reservation details";
+}
+
+<h1>Reservation details</h1>
+<hr />
+<div id="client-info" class="d-flex justify-content-between">
+    <p>Client: @Model.ClientEmail</p>
+    <p>Created on: @Model.CreatedOn.ToString(LongDateFormat)</p>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr class="row">
+            <th class="col-md-2">Full name</th>
+            <th class="col-md-2">Email</th>
+            <th class="col-md-2">Phone number</th>
+            <th class="col-md-2">Personal number</th>
+            <th class="col-md-2">Nationality</th>
+            <th class="col-md-2">Ticket type</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var passenger in Model.Passengers)
+        {
+            <tr class="row">
+                <td class="col-md-2">@passenger.FullName</td>
+                <td class="col-md-2">@passenger.Email</td>
+                <td class="col-md-2">@passenger.PhoneNumber</td>
+                <td class="col-md-2">@passenger.PersonalNumber</td>
+                <td class="col-md-2">@passenger.Nationality</td>
+                <td class="col-md-2">@passenger.TicketType</td>
+            </tr>
+        }
+    </tbody>
+</table>
