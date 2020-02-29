@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200229213749_FlightOnDeleteAction.cs" />
+    <Compile Remove="Migrations\20200229213749_FlightOnDeleteAction.Designer.cs" />
+    <Compile Remove="Migrations\20200229214429_OnDeleteBehavioutCascade.cs" />
+    <Compile Remove="Migrations\20200229214429_OnDeleteBehavioutCascade.Designer.cs" />
+    <Compile Remove="Migrations\20200229214748_FlightOnDeleteBehaviour.cs" />
+    <Compile Remove="Migrations\20200229214748_FlightOnDeleteBehaviour.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
