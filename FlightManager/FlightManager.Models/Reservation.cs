@@ -9,6 +9,7 @@ namespace FlightManager.Models
         public Reservation()
         {
             Passengers = new HashSet<Passanger>();
+            CreatedOn = DateTime.Now;
         }
 
         public int Id { get; set; }

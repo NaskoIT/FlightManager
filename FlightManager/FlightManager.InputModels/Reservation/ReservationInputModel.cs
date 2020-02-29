@@ -1,19 +1,25 @@
 ﻿using AutoMapper;
 using FlightManager.Common.Mappings;
-using System;
 using System.Collections.Generic;
 
 namespace FlightManager.InputModels.Reservation
 {
-    public class ReservationInputModel : IMapTo<Models.Reservation>
+    public class ReservationInputModel : IHaveCustomMappings
     {
-        public ReservationClientInputModel Client { get; set; }
+        public ReservationInputModel()
+        {
+            Passengers = new List<ReservationPassangerInputModel>();
+        }
 
-        public DateTime CreatedOn { get; set; }
+        public ReservationClientInputModel Client { get; set; }
 
         public int FlightId { get; set; }
 
-        [IgnoreMap]
         public List<ReservationPassangerInputModel> Passengers { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration) =>
+            configuration.CreateMap<ReservationClientInputModel, Models.Reservation>()
+            .ForMember(m => m.Passengers, y => y.Ignore());
+        }
     }
 }

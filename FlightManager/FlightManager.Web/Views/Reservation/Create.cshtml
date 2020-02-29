@@ -1,0 +1,106 @@
+﻿@model ReservationInputModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Flight reservation</h1>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h4>Client info</h4>
+            <div class="form-group">
+                <input asp-for="FlightId" hidden class="form-control" />
+            </div>
+            <div class="form-group w-25">
+                <label asp-for="Client.Email">Client email</label>
+                <input asp-for="Client.Email" class="form-control" />
+                <span asp-validation-for="Client.Email" class="text-danger"></span>
+            </div>
+            <hr />
+            <h4>Passangers</h4>
+            <div id="passangers">
+                @for (int i = 0; i < Model.Passengers.Count; i++)
+                {
+                    <div class="passanger">
+                        <hr />
+                        <h5>Passanger 1</h5>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-group w-25">
+                                <label asp-for="Passengers[i].Name"></label>
+                                <input asp-for="Passengers[i].Name" class="form-control" />
+                                <span asp-validation-for="Passengers[i].Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group w-25">
+                                <label asp-for="Passengers[i].MiddleName"></label>
+                                <input asp-for="Passengers[i].MiddleName" class="form-control" />
+                                <span asp-validation-for="Passengers[i].MiddleName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group w-25">
+                                <label asp-for="Passengers[i].Surname"></label>
+                                <input asp-for="Passengers[i].Surname" class="form-control" />
+                                <span asp-validation-for="Passengers[i].Surname" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-group w-50 mr-2">
+                                <label asp-for="Passengers[i].Email"></label>
+                                <input asp-for="Passengers[i].Email" class="form-control" />
+                                <span asp-validation-for="Passengers[i].Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group w-50 ml-2">
+                                <label asp-for="Passengers[i].PhoneNumber">Phone number</label>
+                                <input asp-for="Passengers[i].PhoneNumber" class="form-control" />
+                                <span asp-validation-for="Passengers[i].PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-group w-25">
+                                <label asp-for="Passengers[i].TicketType">Ticket type</label>
+                                <select asp-for="Passengers[i].TicketType" class="form-control">
+                                    <option value="Economy">Economy</option>
+                                    <option value="Bussines">Bussines</option>
+                                </select>
+                                <span asp-validation-for="Passengers[i].TicketType" class="text-danger"></span>
+                            </div>
+                            <div class="form-group w-25">
+                                <label asp-for="Passengers[i].Nationality"></label>
+                                <input asp-for="Passengers[i].Nationality" class="form-control" />
+                                <span asp-validation-for="Passengers[i].Nationality" class="text-danger"></span>
+                            </div>
+                            <div class="form-group w-25">
+                                <label asp-for="Passengers[i].PersonalNumber">Personal number</label>
+                                <input asp-for="Passengers[i].PersonalNumber" class="form-control" />
+                                <span asp-validation-for="Passengers[i].PersonalNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="button" class="btn btn-dark" id="add-passanger-btn">Add passanger</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        let index = @Model.Passengers.Count;
+        let html = $("#passanger").html();
+        $('#add-passanger-btn').on('click', () => {
+            html = html
+                .replace('Passengers_0__', $`Passengers_${index}__`)
+                .replace('Passengers[0]', $`Passengers[${index}]`)
+                .replace('<h5>Passanger 1</h5>', $` <h5>Passanger ${index + 1}</h5>`);
+            $('#passangers').append(html);
+
+            index++;
+        })
+    </script>
+}
