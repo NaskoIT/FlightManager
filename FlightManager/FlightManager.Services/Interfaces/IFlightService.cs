@@ -16,5 +16,10 @@ namespace FlightManager.Services.Interfaces
         T GetById<T>(int id);
 
         Task Delete(int id);
+        int AvailableEconomyTickets(int flightId);
+
+        int AvailableBussinesTickets(int flightId);
+
+        Task UpdateAvailableTickets(int flightId, int ecenomyTickets, int bussinesTickets);
     }
 }

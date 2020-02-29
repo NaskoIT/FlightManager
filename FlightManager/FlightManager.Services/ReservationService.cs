@@ -22,7 +22,7 @@ namespace FlightManager.Services
             Reservation reservation = model.To<Reservation>();
             Client client = GetReservationClient(model.Client.Email);
             //Check if client has already been added to the database
-            if(client != null)
+            if (client != null)
             {
                 reservation.Client = client;
             }
@@ -32,18 +32,23 @@ namespace FlightManager.Services
                 reservation.Passengers.Add(GetReservationPassanger(passanger));
             }
 
-            await context.Reservations.AddAsync(reservation); 
+            await context.Reservations.AddAsync(reservation);
             await context.SaveChangesAsync();
         }
 
-        public Client GetReservationClient(string clientEmail) => 
+        public Client GetReservationClient(string clientEmail) =>
             context.Clients.FirstOrDefault(c => c.Email == clientEmail);
 
         public Passanger GetReservationPassanger(ReservationPassangerInputModel model)
         {
             //Check if passanger has already been added to the database
-            Passanger passanger = context.Passangers.FirstOrDefault(c => c.PersonalNumber == model.PersonalNumber);
-            return passanger ?? model.To<Passanger>(); 
+            Passanger passanger = context.Passangers
+                .FirstOrDefault(c =>
+                c.PersonalNumber == model.PersonalNumber &&
+                c.Email == model.Email &&
+                c.PhoneNumber == model.PhoneNumber);
+
+            return passanger ?? model.To<Passanger>();
         }
     }
 }
