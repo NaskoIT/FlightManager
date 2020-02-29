@@ -11,6 +11,8 @@ using FlightManager.ViewModels;
 using FlightManager.Data.Seeding;
 using FlightManager.Common.Mappings;
 using FlightManager.InputModels.Employee;
+using FlightManager.Services.Interfaces;
+using FlightManager.Services;
 
 namespace FlightManager.Web
 {
@@ -42,6 +44,9 @@ namespace FlightManager.Web
                })
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
+
+            services
+                .AddTransient<IFlightService, FlightService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

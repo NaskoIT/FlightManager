@@ -1,0 +1,72 @@
+﻿@model FlightInputModel
+@{
+    ViewData["Title"] = "Create flight";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="d-flex justify-content-between">
+                <div class="form-group w-50 mr-2">
+                    <label asp-for="Origin"></label>
+                    <input asp-for="Origin" class="form-control" />
+                    <span asp-validation-for="Origin" class="text-danger"></span>
+                </div>
+                <div class="form-group w-50 ml-2">
+                    <label asp-for="Destination"></label>
+                    <input asp-for="Destination" class="form-control" />
+                    <span asp-validation-for="Destination" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="form-group w-50 mr-2">
+                    <label asp-for="TakeOffTime"></label>
+                    <input asp-for="TakeOffTime" class="form-control" />
+                    <span asp-validation-for="TakeOffTime" class="text-danger"></span>
+                </div>
+                <div class="form-group w-50 ml-2">
+                    <label asp-for="LandingTime"></label>
+                    <input asp-for="LandingTime" class="form-control" />
+                    <span asp-validation-for="LandingTime" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="form-group w-25">
+                    <label asp-for="PlaneType"></label>
+                    <input asp-for="PlaneType" class="form-control" />
+                    <span asp-validation-for="PlaneType" class="text-danger"></span>
+                </div>
+                <div class="form-group w-25">
+                    <label asp-for="PlaneNumber"></label>
+                    <input asp-for="PlaneNumber" class="form-control" />
+                    <span asp-validation-for="PlaneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group w-25">
+                    <label asp-for="PilotName"></label>
+                    <input asp-for="PilotName" class="form-control" />
+                    <span asp-validation-for="PilotName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="form-group w-50 mr-2">
+                    <label asp-for="AvailableEconomy"></label>
+                    <input asp-for="AvailableEconomy" class="form-control" />
+                    <span asp-validation-for="AvailableEconomy" class="text-danger"></span>
+                </div>
+                <div class="form-group w-50 ml-2">
+                    <label asp-for="AvailableBussines"></label>
+                    <input asp-for="AvailableBussines" class="form-control" />
+                    <span asp-validation-for="AvailableBussines" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

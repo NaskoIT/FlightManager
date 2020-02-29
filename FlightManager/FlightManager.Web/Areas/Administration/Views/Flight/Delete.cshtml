@@ -1,0 +1,60 @@
+﻿@model FlightDetailsViewModel
+@{
+    ViewData["Title"] = "Delete flight";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="d-flex justify-content-between">
+                <div class="form-group w-50 mr-2">
+                    <label asp-for="Origin"></label>
+                    <input asp-for="Origin" class="form-control" disabled/>
+                </div>
+                <div class="form-group w-50 ml-2">
+                    <label asp-for="Destination"></label>
+                    <input asp-for="Destination" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="form-group w-50 mr-2">
+                    <label asp-for="TakeOffTime"></label>
+                    <input asp-for="TakeOffTime" class="form-control" disabled/>
+                    <span asp-validation-for="TakeOffTime" class="text-danger"></span>
+                </div>
+                <div class="form-group w-50 ml-2">
+                    <label asp-for="Duration"></label>
+                    <input asp-for="Duration" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="form-group w-25">
+                    <label asp-for="PlaneType"></label>
+                    <input asp-for="PlaneType" class="form-control" disabled/>
+                </div>
+                <div class="form-group w-25">
+                    <label asp-for="PlaneNumber"></label>
+                    <input asp-for="PlaneNumber" class="form-control" disabled/>
+                </div>
+                <div class="form-group w-25">
+                    <label asp-for="PilotName"></label>
+                    <input asp-for="PilotName" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="form-group w-50 mr-2">
+                    <label asp-for="AvailableEconomy"></label>
+                    <input asp-for="AvailableEconomy" class="form-control" disabled/>
+                </div>
+                <div class="form-group w-50 ml-2">
+                    <label asp-for="AvailableBussines"></label>
+                    <input asp-for="AvailableBussines" class="form-control" disabled/>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Delete</button>
+        </form>
+    </div>
+</div>

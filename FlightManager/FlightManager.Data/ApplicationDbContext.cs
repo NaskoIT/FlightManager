@@ -10,5 +10,29 @@ namespace FlightManager.Data
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<Flight> Flights { get; set; }
+
+        public DbSet<Location> Locations { get; set; }
+
+        public Reservation Reservations { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Flight>(flight =>
+            {
+                flight.HasOne(f => f.Origin)
+                .WithMany(o => o.OriginFlights)
+                .HasForeignKey(f => f.OriginId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+                flight.HasOne(f => f.Destination)
+                .WithMany(o => o.DestinationFlights)
+                .HasForeignKey(f => f.DestinationId)
+                .OnDelete(DeleteBehavior.NoAction);
+            });
+
+            base.OnModelCreating(builder);
+        }
     }
 }
