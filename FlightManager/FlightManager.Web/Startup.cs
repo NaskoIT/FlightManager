@@ -13,6 +13,10 @@ using FlightManager.Common.Mappings;
 using FlightManager.InputModels.Employee;
 using FlightManager.Services.Interfaces;
 using FlightManager.Services;
+using FlightManager.Common;
+using System.Collections.Generic;
+using AutoMapper;
+using FlightManager.Web.Infrastructure;
 
 namespace FlightManager.Web
 {
@@ -45,14 +49,18 @@ namespace FlightManager.Web
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+            });
+
+            services.PopulateGlobalConstnts(Configuration);
+
             services
                 .AddTransient<IFlightService, FlightService>()
-                .AddTransient<IReservationService, ReservationService>();
-
-            string smtpServer = Configuration["Email:SmtpServer"];
-            string username = Configuration["Email:Username"];
-            string password = Configuration["Email:Password"];
-            services.AddTransient<IEmailSender, EmailSender>(_ => new EmailSender(smtpServer, username, password));
+                .AddTransient<IReservationService, ReservationService>()
+                .AddTransient<IEmailSender, EmailSender>(_ => EmailSenderFactory.Instance(Configuration));
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -60,7 +68,15 @@ namespace FlightManager.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).Assembly, typeof(EmployeeCreateInputModel).Assembly);
+            var profiles = new List<Profile>()
+            {
+                new MappingProfile()
+            };
+
+            AutoMapperConfig.RegisterMappings(
+                profiles,
+                typeof(ErrorViewModel).Assembly, 
+                typeof(EmployeeCreateInputModel).Assembly);
 
             using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
             {

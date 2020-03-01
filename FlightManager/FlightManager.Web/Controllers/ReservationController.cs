@@ -1,11 +1,17 @@
-﻿using FlightManager.InputModels.Reservation;
+﻿using FlightManager.Common.Mappings;
+using FlightManager.InputModels.Reservation;
 using FlightManager.Models.Enums;
 using FlightManager.Services;
 using FlightManager.Services.Interfaces;
+using FlightManager.ViewModels.Flight;
 using FlightManager.ViewModels.Reservation;
+using FlightManager.Web.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static FlightManager.Common.GlobalConstants;
 
 namespace FlightManager.Web.Controllers
 {
@@ -57,7 +63,11 @@ namespace FlightManager.Web.Controllers
 
             await reservationService.Create(model);
             await flightService.UpdateAvailableTickets(model.FlightId, ecenomyTickets, bussinesTickets);
-            //TODO user IEmail sender to send emails to all passengers
+            
+            FlightViewModel flight = flightService.GetById<FlightViewModel>(model.FlightId);
+            await SendConfirmationEmailsToPassengers(model.Passengers, flight);
+            await SendEmailToClient(model.Client.Email, flight, model.Passengers);
+
             return Redirect("/");
         }
 
@@ -66,5 +76,37 @@ namespace FlightManager.Web.Controllers
             ReservationDetailsViewModel model = reservationService.GetById<ReservationDetailsViewModel>(id);
             return View(model);
         }
+
+        private async Task SendConfirmationEmailsToPassengers(IEnumerable<ReservationPassangerInputModel> passengers, FlightViewModel flight)
+        {
+            const string EmailTemplateName = "PassengerConfirmationEmail";
+            var model = new ReservationPassengerConfirmationEmailViewModel
+            {
+                Flight = flight
+            };
+
+            foreach (ReservationPassangerInputModel passenger in passengers)
+            {
+                model.Passenger = passenger.To<ReservationPassengerViewModel>();
+                string body = await this.RenderViewAsync(EmailTemplateName, model, true);
+                //Add smtp server credentials in appsettings.json and then uncomment next line
+                //emailSender.Send(EmailCredentials.Email, passenger.Email, body, EmailSubjects.PassengerConfirmationEmail, true);
+            }
+        }
+
+        private async Task SendEmailToClient(string email, FlightViewModel flight, IEnumerable<ReservationPassangerInputModel> passengers)
+        {
+            const string EmailTemplateName = "ClientConfirmationEmail";
+            var model = new ReservationClientConfirmationEmailViewModel
+            {
+                Flight = flight,
+                Passengers = passengers.Select(p => p.To<ReservationPassengerViewModel>())
+            };
+
+            string body = await this.RenderViewAsync(EmailTemplateName, model, true);
+            //Add smtp server credentials in appsettings.json and then uncomment next line
+            //emailSender.Send(EmailCredentials.Email, email, body, EmailSubjects.ClientConfirmationEmail, true);
+        }
+
     }
 }

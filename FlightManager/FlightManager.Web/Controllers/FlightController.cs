@@ -1,5 +1,6 @@
 ﻿using FlightManager.Services.Interfaces;
 using FlightManager.ViewModels.Flight;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightManager.Web.Controllers
@@ -15,6 +16,7 @@ namespace FlightManager.Web.Controllers
 
         public IActionResult All() => View(flightService.All());
 
+        [Authorize]
         public IActionResult Details(int id)
         {
             FlightDetailsViewModel model = flightService.GetById<FlightDetailsViewModel>(id);

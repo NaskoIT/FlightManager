@@ -13,6 +13,18 @@
             public const string Employee = "Employee";
         }
 
+        public static class EmailCredentials
+        {
+            public static string Email { get; set; }
+        }
+
+        public static class EmailSubjects
+        {
+            public const string PassengerConfirmationEmail = "Ticket reservation confirmation.";
+
+            public const string ClientConfirmationEmail = "Tickets reservation confirmation.";
+        }
+
         public static class Admin
         {
             public const string Username = "admin";

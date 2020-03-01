@@ -7,12 +7,12 @@ namespace FlightManager.Services
     {
         private readonly SmtpClient client;
 
-        public EmailSender(string smtpServer, string username, string password)
+        public EmailSender(string smtpServer, string username, string password, int port)
         {
-            client = new SmtpClient(smtpServer)
+            client = new SmtpClient(smtpServer, port)
             {
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(username, password)
+                Credentials = new NetworkCredential(username, password),
+                EnableSsl = true
             };
         }
 
