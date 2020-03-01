@@ -5,12 +5,11 @@ namespace FlightManager.Services
 {
     public class EmailSender : IEmailSender
     {
-        private const int Port = 465;
         private readonly SmtpClient client;
 
-        public EmailSender(string smtpServer, string username, string password)
+        public EmailSender(string smtpServer, string username, string password, int port)
         {
-            client = new SmtpClient(smtpServer, Port)
+            client = new SmtpClient(smtpServer, port)
             {
                 Credentials = new NetworkCredential(username, password),
                 EnableSsl = true

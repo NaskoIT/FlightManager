@@ -105,7 +105,7 @@ namespace FlightManager.Web.Controllers
 
             string body = await this.RenderViewAsync(EmailTemplateName, model, true);
             //Add smtp server credentials in appsettings.json and then uncomment next line
-            //emailSender.Send(EmailCredentials.Email, email, body, EmailSubjects.PassengerConfirmationEmail, true);
+            //emailSender.Send(EmailCredentials.Email, email, body, EmailSubjects.ClientConfirmationEmail, true);
         }
 
     }

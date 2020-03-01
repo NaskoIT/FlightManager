@@ -55,15 +55,12 @@ namespace FlightManager.Web
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
             });
 
+            services.PopulateGlobalConstnts(Configuration);
+
             services
                 .AddTransient<IFlightService, FlightService>()
-                .AddTransient<IReservationService, ReservationService>();
-
-            string smtpServer = Configuration["Email:SmtpServer"];
-            string username = Configuration["Email:Username"];
-            string password = Configuration["Email:Password"];
-            GlobalConstants.EmailCredentials.Email = username;
-            services.AddTransient<IEmailSender, EmailSender>(_ => new EmailSender(smtpServer, username, password));
+                .AddTransient<IReservationService, ReservationService>()
+                .AddTransient<IEmailSender, EmailSender>(_ => EmailSenderFactory.Instance(Configuration));
 
             services.AddControllersWithViews();
             services.AddRazorPages();
