@@ -1,2 +1,2 @@
 # FlightManager
-Appllication for booking flights
+Manage your airline company with pleasure and make your clients happy!
