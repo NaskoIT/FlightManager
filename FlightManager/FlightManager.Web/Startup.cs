@@ -14,6 +14,9 @@ using FlightManager.InputModels.Employee;
 using FlightManager.Services.Interfaces;
 using FlightManager.Services;
 using FlightManager.Common;
+using System.Collections.Generic;
+using AutoMapper;
+using FlightManager.Web.Infrastructure;
 
 namespace FlightManager.Web
 {
@@ -68,7 +71,15 @@ namespace FlightManager.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).Assembly, typeof(EmployeeCreateInputModel).Assembly);
+            var profiles = new List<Profile>()
+            {
+                new MappingProfile()
+            };
+
+            AutoMapperConfig.RegisterMappings(
+                profiles,
+                typeof(ErrorViewModel).Assembly, 
+                typeof(EmployeeCreateInputModel).Assembly);
 
             using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
             {

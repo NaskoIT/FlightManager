@@ -1,0 +1,20 @@
+﻿@model ReservationPassengerConfirmationEmailViewModel
+
+<p>
+    Hello, @($"{Model.Passenger.Name} {Model.Passenger.MiddleName} {Model.Passenger.Surname}")
+</p>
+<div>
+    You have reserved ticket for the following flight:
+    <p>Origin: @Model.Flight.Origin</p>
+    <p>Destination: @Model.Flight.Destination</p>
+    <p>Take off time: @Model.Flight.TakeOffTime.ToString(LongDateFormat)</p>
+    <p>Duration: @Model.Flight.Duration</p>
+    <p>Plane number: @Model.Flight.PlaneNumber</p>
+    <p>Ticket type: @Model.Passenger.TicketType</p>
+</div>   
+<div>
+    <p>We have the following data for you:</p>
+    <p>Personal number: @Model.Passenger.PersonalNumber</p>
+    <p>Phone number: @Model.Passenger.PhoneNumber</p>
+    <p>Nationality: @Model.Passenger.Nationality</p>
+</div>

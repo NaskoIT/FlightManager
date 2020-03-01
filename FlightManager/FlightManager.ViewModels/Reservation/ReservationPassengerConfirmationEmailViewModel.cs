@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FlightManager.ViewModels.Flight;
 
 namespace FlightManager.ViewModels.Reservation
 {
-    class ReservationPassengerConfirmationEmailViewModel
+    public class ReservationPassengerConfirmationEmailViewModel
     {
+        public ReservationPassengerViewModel Passenger { get; set; }
+
+        public FlightViewModel Flight { get; set; }
     }
 }

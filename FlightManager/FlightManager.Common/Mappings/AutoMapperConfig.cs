@@ -13,7 +13,7 @@ namespace FlightManager.Common.Mappings
 
         public static IMapper MapperInstance { get; set; }
 
-        public static void RegisterMappings(params Assembly[] assemblies)
+        public static void RegisterMappings(IEnumerable<Profile> profiles, params Assembly[] assemblies)
         {
             if (initialized)
             {
@@ -25,6 +25,7 @@ namespace FlightManager.Common.Mappings
             var types = assemblies.SelectMany(a => a.GetExportedTypes()).ToList();
 
             var config = new MapperConfigurationExpression();
+            config.AddProfiles(profiles);
             config.CreateProfile(
                 "ReflectionProfile",
                 configuration =>
