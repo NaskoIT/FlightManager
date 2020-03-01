@@ -2,10 +2,16 @@
 using FlightManager.Models.Enums;
 using FlightManager.Services;
 using FlightManager.Services.Interfaces;
+using FlightManager.ViewModels.Flight;
 using FlightManager.ViewModels.Reservation;
+using FlightManager.Web.Infrastructure;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static FlightManager.Common.GlobalConstants;
 
 namespace FlightManager.Web.Controllers
 {
@@ -57,7 +63,11 @@ namespace FlightManager.Web.Controllers
 
             await reservationService.Create(model);
             await flightService.UpdateAvailableTickets(model.FlightId, ecenomyTickets, bussinesTickets);
-            //TODO user IEmail sender to send emails to all passengers
+            
+            FlightViewModel flight = flightService.GetById<FlightViewModel>(model.FlightId);
+            await SendConfirmationEmailsToPassengers(model.Passengers, flight);
+
+            //SendEmailToClient(model.Client.Email);
             return Redirect("/");
         }
 
@@ -66,5 +76,20 @@ namespace FlightManager.Web.Controllers
             ReservationDetailsViewModel model = reservationService.GetById<ReservationDetailsViewModel>(id);
             return View(model);
         }
+
+        private async Task SendConfirmationEmailsToPassengers(List<ReservationPassangerInputModel> passengers1, IEnumerable<ReservationPassangerInputModel> passengers)
+        {
+            foreach (ReservationPassangerInputModel passenger in passengers)
+            {
+                string body = await this.RenderViewAsync("PassengerFlightEmail", passenger);
+                emailSender.Send(EmailCredentials.Email, passenger.Email, body, EmailSubjects.PassengerConfirmationEmail, true);
+            }
+        }
+
+        private void SendEmailToClient(string email)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

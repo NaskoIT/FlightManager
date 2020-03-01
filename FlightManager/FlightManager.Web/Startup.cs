@@ -13,6 +13,7 @@ using FlightManager.Common.Mappings;
 using FlightManager.InputModels.Employee;
 using FlightManager.Services.Interfaces;
 using FlightManager.Services;
+using FlightManager.Common;
 
 namespace FlightManager.Web
 {
@@ -45,6 +46,12 @@ namespace FlightManager.Web
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+            });
+
             services
                 .AddTransient<IFlightService, FlightService>()
                 .AddTransient<IReservationService, ReservationService>();
@@ -52,6 +59,7 @@ namespace FlightManager.Web
             string smtpServer = Configuration["Email:SmtpServer"];
             string username = Configuration["Email:Username"];
             string password = Configuration["Email:Password"];
+            GlobalConstants.EmailCredentials.Email = username;
             services.AddTransient<IEmailSender, EmailSender>(_ => new EmailSender(smtpServer, username, password));
 
             services.AddControllersWithViews();
